@@ -1,12 +1,12 @@
 from django import forms
 
-from accounts.models import AccountDetail
+from accounts.models import User
 
 
-class AccountDetailForm(forms.ModelForm):
+class UserDetailForm(forms.ModelForm):
     class Meta:
-        model = AccountDetail
-        fields = ["user", "company_name", "logo", "iban"]
+        model = User
+        fields = ["username", "first_name", "last_name", "is_company", "company_name", "logo", "iban"]
         widgets = {
             "company_name": forms.TextInput(
                 attrs={"placeholder": "e.g. Acme Licensing Ltd. (optional)"}

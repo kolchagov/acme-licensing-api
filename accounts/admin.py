@@ -1,13 +1,10 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 
-from accounts.forms import AccountDetailForm
-from accounts.models import AccountDetail, User
-
-admin.site.register(User, UserAdmin)
+from accounts.models import User
+from accounts.forms import UserDetailForm
 
 
-@admin.register(AccountDetail)
-class AccountDetailAdmin(admin.ModelAdmin):
-    form = AccountDetailForm
-    list_display = ("user", "company_name", "iban")
+@admin.register(User)
+class UserDetailAdmin(admin.ModelAdmin):
+    form = UserDetailForm
+    list_display = ("username", "get_full_name", "is_company", "company_name", "iban")
