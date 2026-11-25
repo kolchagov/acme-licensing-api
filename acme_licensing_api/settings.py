@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 EXTRA_APPS = [
     'accounts',
+    'products',
 ]
 
 INSTALLED_APPS = [
