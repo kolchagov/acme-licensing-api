@@ -2,39 +2,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Customers</title>
-  <style>
-    body { font-family: system-ui, sans-serif; margin: 2rem; }
-    table { border-collapse: collapse; }
-    th, td { border: 1px solid #ccc; padding: .4rem .6rem; text-align: left; }
-  </style>
+    <meta charset="utf-8">
+    <title>Customers</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            margin: 2rem;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: .4rem .6rem;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
-  <h1>Customers</h1>
-  <p><a href="{% url 'customer-create' %}">Add customer</a></p>
-  {% if object_list %}
+<h1>Customers</h1>
+<p><a href="{% url 'customer-create' %}">Add customer</a></p>
+{% if object_list %}
     <table>
-      <thead>
-        <tr><th>Name</th><th>Contact person</th><th>Phone</th><th>Email</th><th></th></tr>
-      </thead>
-      <tbody>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Contact person</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
         {% for customer in object_list %}
-          <tr>
-            <td>{{ customer.name }}</td>
-            <td>{{ customer.contact_person }}</td>
-            <td>{{ customer.phone }}</td>
-            <td>{{ customer.email }}</td>
-            <td>
-              <a href="{% url 'customer-update' customer.pk %}">Edit</a>
-              <a href="{% url 'customer-delete' customer.pk %}">Delete</a>
-            </td>
-          </tr>
+            <tr>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.contact_person }}</td>
+                <td>{{ customer.phone }}</td>
+                <td>{{ customer.email }}</td>
+                <td>
+                    <a href="{% url 'customer-update' customer.pk %}">Edit</a>
+                    <a href="{% url 'customer-delete' customer.pk %}">Delete</a>
+                </td>
+            </tr>
         {% endfor %}
-      </tbody>
+        </tbody>
     </table>
-  {% else %}
+{% else %}
     <p>No customers yet.</p>
-  {% endif %}
+{% endif %}
 </body>
 </html>
