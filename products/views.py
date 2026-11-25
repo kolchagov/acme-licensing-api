@@ -1,18 +1,26 @@
-from msilib.schema import ListView
 
-from django.shortcuts import render
-from django.views.generic import DetailView
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import UpdateView, CreateView, DeleteView
 
-from models import Product
+from products.models import Product
 
 class ProductsListView(ListView):
     model = Product
-    # TODO add template
 
 class ProductDetailView(DetailView):
     model = Product
-    # TODO template
 
 class ProductUpdateView(UpdateView):
     model = Product
-    # TODO
+    fields = ["code", "name", "url", "description"]
+    success_url = reverse_lazy("product-list")
+
+class ProductCreateView(CreateView):
+    model = Product
+    fields = ["code", "name", "url", "description"]
+    success_url = reverse_lazy("product-list")
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy("product-list")

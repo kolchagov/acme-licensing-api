@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Delete product</title>
+</head>
+<body>
+  <h1>Delete product</h1>
+  <p>Delete "{{ object.name }}"? This cannot be undone.</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+    <a href="{% url 'product-list' %}">Cancel</a>
+  </form>
+</body>
+</html>
