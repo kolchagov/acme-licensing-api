@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>New exception log</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            margin: 2rem;
+            max-width: 40rem;
+        }
+
+        p {
+            margin: .8rem 0;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: .3rem;
+        }
+
+        .errorlist {
+            color: #b00020;
+        }
+    </style>
+</head>
+<body>
+<h1>New exception log</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+    <a href="{% url 'exceptionlog-list' %}">Cancel</a>
+</form>
+</body>
+</html>
