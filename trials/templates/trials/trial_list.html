@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Trials</title>
+</head>
+<body>
+<h1>Trials</h1>
+<p><a href="{% url 'trial-create' %}">Add trial</a></p>
+<ul>
+    {% for trial in trial_list %}
+    <li>
+        <a href="{% url 'trial-detail' trial.pk %}">{{ trial.device_sn }}</a> -
+        {{ trial.app }}, <b>installed:</b>
+        {{ trial.date_installed.isoformat }}
+    </li>
+    {% empty %}
+    <li>No trials yet.</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

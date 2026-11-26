@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ trial.device_sn }}</title>
+</head>
+<body>
+<h1>{{ trial.device_sn }}</h1>
+<dl>
+    <dt>Product</dt><dd>{{ trial.app }}</dd>
+    <dt>Installed</dt><dd>{{ trial.date_installed }}</dd>
+    <dt>Details</dt><dd>{{ trial.details|linebreaksbr }}</dd>
+</dl>
+<p>
+    <a href="{% url 'trial-edit' trial.pk %}">Edit</a> |
+    <a href="{% url 'trial-list' %}">Back to trials</a>
+</p>
+</body>
+</html>
