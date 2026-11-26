@@ -42,9 +42,17 @@ class User(AbstractUser):
     def __str__(self):
         return self.company_name or self.username
 
-    def clean(self):
-        super().clean()
+    def _check_company_name(self):
         if self.is_company and not self.company_name:
             raise ValidationError({
                 'company_name': 'Company name is required for distributors.',
             })
+
+    def clean(self):
+        super().clean()
+        self._check_company_name()
+
+    def save(self, *args, **kwargs):
+        # clean() is skipped by create_user/createsuperuser/seed data
+        self._check_company_name()
+        super().save(*args, **kwargs)

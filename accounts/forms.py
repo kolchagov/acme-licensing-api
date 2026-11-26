@@ -9,9 +9,9 @@ class UserDetailForm(forms.ModelForm):
         fields = ["username", "first_name", "last_name", "is_company", "company_name", "logo", "iban"]
         widgets = {
             "company_name": forms.TextInput(
-                attrs={"placeholder": "e.g. Acme Licensing Ltd. (optional)"}
+                attrs={"placeholder": "e.g. Acme Distributors Ltd."}
             ),
             "iban": forms.TextInput(
-                attrs={"placeholder": "IBAN CODE (optional)"}
+                attrs={"placeholder": "IBAN CODE (only for distributors)"}
             ),
         }

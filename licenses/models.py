@@ -23,7 +23,7 @@ class License(models.Model):
     )
 
     version = models.CharField(
-        max_length=10,
+        max_length=20,
         validators=[
             app_version_validator()
         ],

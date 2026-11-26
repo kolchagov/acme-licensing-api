@@ -38,7 +38,7 @@ class ExceptionLog(models.Model):
     )
 
     version = models.CharField(
-        max_length=10,
+        max_length=20,
         default="",
         validators=[
             app_version_validator()

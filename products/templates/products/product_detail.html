@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ product.code }} - {{ product.name }}</title>
+</head>
+<body>
+<h1>{{ product.code }} - {{ product.name }}</h1>
+<dl>
+    <dt>URL</dt><dd>{{ product.url|default:"-" }}</dd>
+    <dt>Description</dt><dd>{{ product.description|linebreaksbr|default:"-" }}</dd>
+    <dt>Bundled products</dt>
+    <dd>{% for bundled in product.bundled_products.all %}{{ bundled }}{% if not forloop.last %}, {% endif %}{% empty %}-{% endfor %}</dd>
+</dl>
+<p>
+    <a href="{% url 'product-edit' product.pk %}">Edit</a>
+    <a href="{% url 'product-delete' product.pk %}">Delete</a> |
+    <a href="{% url 'product-list' %}">Back to products</a>
+</p>
+</body>
+</html>
