@@ -1,6 +1,7 @@
-from django.core.validators import MinLengthValidator, RegexValidator
+from django.core.validators import MinLengthValidator
 from django.db import models
 
+from acme_licensing_api.validators import app_version_validator
 from products.models import Product
 
 
@@ -23,10 +24,7 @@ class ExceptionLog(models.Model):
         max_length=10,
         default="",
         validators=[
-            RegexValidator(
-                regex=r'^[0-9.]+(-(alpha|beta|rc|final)\d*)*$',
-                message="App version required, must follow standard dot notation."
-            )
+            app_version_validator()
         ]
     )
 

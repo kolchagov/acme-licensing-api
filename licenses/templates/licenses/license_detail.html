@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>License {{ license.pk }}</title>
+</head>
+<body>
+<h1>License {{ license.pk }}</h1>
+<dl>
+    <dt>Trial</dt>
+    <dd>{{ license.trial }}</dd>
+    <dt>Customer</dt>
+    <dd>{{ license.customer }}</dd>
+    <dt>Version</dt>
+    <dd>{{ license.version }}</dd>
+    <dt>License date</dt>
+    <dd>{{ license.license_date }}</dd>
+    <dt>Expiry date</dt>
+    <dd>{{ license.expiry_date|default:"-" }}</dd>
+    <dt>Check code</dt>
+    <dd>{{ license.check_code }}</dd>
+</dl>
+<p>
+    <a href="{% url 'license-update' license.pk %}">Edit</a>
+    <a href="{% url 'license-delete' license.pk %}">Delete</a> |
+    <a href="{% url 'license-list' %}">Back to licenses</a>
+</p>
+</body>
+</html>

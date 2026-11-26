@@ -36,6 +36,7 @@ EXTRA_APPS = [
     'customers',
     'exceptionlog',
     'trials',
+    'licenses',
 ]
 
 INSTALLED_APPS = [

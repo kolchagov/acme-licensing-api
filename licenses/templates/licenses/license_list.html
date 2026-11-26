@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Licenses</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            margin: 2rem;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: .4rem .6rem;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<h1>Licenses</h1>
+<p><a href="{% url 'license-create' %}">Add license</a></p>
+{% if object_list %}
+    <table>
+        <thead>
+        <tr>
+            <th>Trial</th>
+            <th>Customer</th>
+            <th>Version</th>
+            <th>License date</th>
+            <th>Expiry date</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for license in object_list %}
+            <tr>
+                <td><a href="{% url 'license-detail' license.pk %}">{{ license.trial }}</a></td>
+                <td>{{ license.customer }}</td>
+                <td>{{ license.version }}</td>
+                <td>{{ license.license_date }}</td>
+                <td>{{ license.expiry_date|default:"-" }}</td>
+                <td>
+                    <a href="{% url 'license-update' license.pk %}">Edit</a>
+                    <a href="{% url 'license-delete' license.pk %}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No licenses yet.</p>
+{% endif %}
+</body>
+</html>
