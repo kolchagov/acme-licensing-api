@@ -1,10 +1,7 @@
-from trials.models import Trial
-
-
 def convert_code(code):
     """
     convert code to digits. Letter A is 11
-    :param code: app code, eg. A01, already cleaned by Django
+    :param code: app code, e.g. A01, already cleaned by Django
     :return: converted 4 digits string: 1101
     """
     # if not re.match(r'^[A-L]\d\d$',code):
@@ -14,23 +11,25 @@ def convert_code(code):
 
 
 def luhn_checksum(base):
+    """Return the Luhn check digit for base, ready to append to it."""
     def digits_of(n):
-        return [int(d) for d in str(n)]
+        return [int(digit) for digit in str(n)]
 
     digits = digits_of(base)
-    odd_digits = digits[-1::-2]
-    even_digits = digits[-2::-2]
-    checksum = 0
-    checksum += sum(odd_digits)
-    for d in even_digits:
+    # the check digit will follow base, so base's last digit gets doubled
+    doubled_digits = digits[-1::-2]
+    other_digits = digits[-2::-2]
+    checksum = sum(other_digits)
+    for d in doubled_digits:
         checksum += sum(digits_of(d * 2))
-    return checksum % 10
+    return (10 - checksum % 10) % 10
 
 
 def is_luhn_valid(check_number):
-    return luhn_checksum(check_number) == 0
+    check_number = str(check_number)
+    return luhn_checksum(check_number[:-1]) == int(check_number[-1])
 
 
-def trial_code_generator(trial: Trial) -> str:
-    base = convert_code(trial.code) + f"{trial.pk:5}"
+def trial_code_generator(trial) -> str:
+    base = convert_code(trial.app.code) + f"{trial.pk:04}"
     return base + str(luhn_checksum(base))

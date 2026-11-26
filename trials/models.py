@@ -2,7 +2,7 @@ from django.core.validators import RegexValidator, MinLengthValidator
 from django.db import models
 
 from products.models import Product
-
+from acme_licensing_api.utils import trial_code_generator
 
 class Trial(models.Model):
     device_sn = models.CharField(
@@ -28,3 +28,7 @@ class Trial(models.Model):
         blank=True,
         default='',
     )
+
+    @property
+    def trial_code(self):
+        return trial_code_generator(self)

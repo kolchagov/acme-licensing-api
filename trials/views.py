@@ -1,6 +1,6 @@
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from trials.models import Trial
 
@@ -22,4 +22,9 @@ class TrialCreateView(CreateView):
 class TrialUpdateView(UpdateView):
     model = Trial
     fields = ["device_sn", "app", "details"]
+    success_url = reverse_lazy("trial-list")
+
+
+class TrialDeleteView(DeleteView):
+    model = Trial
     success_url = reverse_lazy("trial-list")

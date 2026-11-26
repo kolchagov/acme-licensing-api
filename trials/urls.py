@@ -5,6 +5,7 @@ from trials.views import (
     TrialCreateView,
     TrialDetailView,
     TrialUpdateView,
+    TrialDeleteView,
 )
 
 urlpatterns = [
@@ -13,5 +14,6 @@ urlpatterns = [
     path('<int:pk>/', include([
         path('', TrialDetailView.as_view(), name='trial-detail'),
         path('edit/', TrialUpdateView.as_view(), name='trial-edit'),
+        path('delete/', TrialDeleteView.as_view(), name='trial-delete'),
     ])),
 ]
