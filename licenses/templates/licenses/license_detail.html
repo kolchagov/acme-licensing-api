@@ -1,24 +1,30 @@
 {% extends 'index.html' %}
 {% block title %}License {{ license.pk }}{% endblock %}
 {% block content %}
-    <h1 class="my-4">License {{ license.pk }}</h1>
-    <dl class="row">
-        <dt class="col-sm-3">Trial</dt>
-        <dd class="col-sm-9">{{ license.trial }}</dd>
-        <dt class="col-sm-3">Customer</dt>
-        <dd class="col-sm-9">{{ license.customer }}</dd>
-        <dt class="col-sm-3">Version</dt>
-        <dd class="col-sm-9">{{ license.version }}</dd>
-        <dt class="col-sm-3">License date</dt>
-        <dd class="col-sm-9">{{ license.license_date }}</dd>
-        <dt class="col-sm-3">Expiry date</dt>
-        <dd class="col-sm-9">{{ license.expiry_date|default:"-" }}</dd>
-        <dt class="col-sm-3">Check code</dt>
-        <dd class="col-sm-9">{{ license.check_code }}</dd>
-    </dl>
-    <p class="mt-4">
-        <a class="btn btn-outline-secondary" href="{% url 'license-update' license.pk %}">Edit</a>
-        <a class="btn btn-outline-danger" href="{% url 'license-delete' license.pk %}">Delete</a>
-        <a class="btn btn-link" href="{% url 'license-list' %}">Back to licenses</a>
-    </p>
+    <main class="py-4">
+        <h1 class="h3 mb-4">License {{ license.pk }}</h1>
+        <div class="card">
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-3">Trial</dt>
+                    <dd class="col-sm-9">{{ license.trial }}</dd>
+                    <dt class="col-sm-3">Customer</dt>
+                    <dd class="col-sm-9">{{ license.customer }}</dd>
+                    <dt class="col-sm-3">Version</dt>
+                    <dd class="col-sm-9">{{ license.version }}</dd>
+                    <dt class="col-sm-3">License date</dt>
+                    <dd class="col-sm-9">{{ license.license_date }}</dd>
+                    <dt class="col-sm-3">Expiry date</dt>
+                    <dd class="col-sm-9">{{ license.expiry_date|default:"-" }}</dd>
+                    <dt class="col-sm-3">Check code</dt>
+                    <dd class="col-sm-9">{{ license.check_code }}</dd>
+                </dl>
+            </div>
+            <div class="card-footer d-flex justify-content-end gap-2">
+                <a class="btn btn-link me-auto" href="{% url 'license-list' %}">Back to licenses</a>
+                <a class="btn btn-outline-secondary" href="{% url 'license-update' license.pk %}">Edit</a>
+                <a class="btn btn-outline-danger" href="{% url 'license-delete' license.pk %}">Delete</a>
+            </div>
+        </div>
+    </main>
 {% endblock %}

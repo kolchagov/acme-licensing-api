@@ -1,26 +1,32 @@
 {% extends 'index.html' %}
 {% block title %}{{ customer.name }}{% endblock %}
 {% block content %}
-    <h1 class="my-4">{{ customer.name }}</h1>
-    <dl class="row">
-        <dt class="col-sm-3">Address</dt>
-        <dd class="col-sm-9">{{ customer.address|default:"-" }}</dd>
-        <dt class="col-sm-3">Contact person</dt>
-        <dd class="col-sm-9">{{ customer.contact_person }}</dd>
-        <dt class="col-sm-3">UIC</dt>
-        <dd class="col-sm-9">{{ customer.uic }}</dd>
-        <dt class="col-sm-3">VAT</dt>
-        <dd class="col-sm-9">{{ customer.vat }}</dd>
-        <dt class="col-sm-3">Phone</dt>
-        <dd class="col-sm-9">{{ customer.phone }}</dd>
-        <dt class="col-sm-3">Email</dt>
-        <dd class="col-sm-9">{{ customer.email }}</dd>
-        <dt class="col-sm-3">Products</dt>
-        <dd class="col-sm-9">{% for product in customer.products.all %}{{ product }}{% if not forloop.last %}, {% endif %}{% empty %}-{% endfor %}</dd>
-    </dl>
-    <p class="mt-4">
-        <a class="btn btn-outline-secondary" href="{% url 'customer-update' customer.pk %}">Edit</a>
-        <a class="btn btn-outline-danger" href="{% url 'customer-delete' customer.pk %}">Delete</a>
-        <a class="btn btn-link" href="{% url 'customers-list' %}">Back to customers</a>
-    </p>
+    <main class="py-4">
+        <h1 class="h3 mb-4">{{ customer.name }}</h1>
+        <div class="card">
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-3">Address</dt>
+                    <dd class="col-sm-9">{{ customer.address|default:"-" }}</dd>
+                    <dt class="col-sm-3">Contact person</dt>
+                    <dd class="col-sm-9">{{ customer.contact_person }}</dd>
+                    <dt class="col-sm-3">UIC</dt>
+                    <dd class="col-sm-9">{{ customer.uic }}</dd>
+                    <dt class="col-sm-3">VAT</dt>
+                    <dd class="col-sm-9">{{ customer.vat }}</dd>
+                    <dt class="col-sm-3">Phone</dt>
+                    <dd class="col-sm-9">{{ customer.phone }}</dd>
+                    <dt class="col-sm-3">Email</dt>
+                    <dd class="col-sm-9">{{ customer.email }}</dd>
+                    <dt class="col-sm-3">Products</dt>
+                    <dd class="col-sm-9">{% for product in customer.products.all %}{{ product }}{% if not forloop.last %}, {% endif %}{% empty %}-{% endfor %}</dd>
+                </dl>
+            </div>
+            <div class="card-footer d-flex justify-content-end gap-2">
+                <a class="btn btn-link me-auto" href="{% url 'customers-list' %}">Back to customers</a>
+                <a class="btn btn-outline-secondary" href="{% url 'customer-update' customer.pk %}">Edit</a>
+                <a class="btn btn-outline-danger" href="{% url 'customer-delete' customer.pk %}">Delete</a>
+            </div>
+        </div>
+    </main>
 {% endblock %}

@@ -1,17 +1,31 @@
 {% extends 'index.html' %}
 {% block title %}Exception log entry{% endblock %}
 {% block content %}
-    <h1 class="my-4">Exception log entry</h1>
-    <p><strong>Timestamp:</strong> {{ object.timestamp }}</p>
-    <p><strong>App:</strong> {{ object.app }}</p>
-    <p><strong>Version:</strong> {{ object.version }}</p>
-    <p><strong>Level:</strong> {{ object.level }}</p>
-    <p><strong>IP:</strong> {{ object.ip|default:"-" }}</p>
-    <p><strong>Message:</strong> {{ object.message }}</p>
-    <p><strong>Stacktrace:</strong></p>
-    <pre class="bg-light border rounded p-3">{{ object.stacktrace|default:"-" }}</pre>
-    <p class="mt-4">
-        <a class="btn btn-outline-danger" href="{% url 'exceptionlog-delete' object.pk %}">Delete</a>
-        <a class="btn btn-link" href="{% url 'exceptionlog-list' %}">Back</a>
-    </p>
+    <main class="py-4">
+        <h1 class="h3 mb-4">Exception log entry</h1>
+        <div class="card">
+            <div class="card-body">
+                <dl class="row mb-3">
+                    <dt class="col-sm-3">Timestamp</dt>
+                    <dd class="col-sm-9">{{ object.timestamp }}</dd>
+                    <dt class="col-sm-3">App</dt>
+                    <dd class="col-sm-9">{{ object.app }}</dd>
+                    <dt class="col-sm-3">Version</dt>
+                    <dd class="col-sm-9">{{ object.version }}</dd>
+                    <dt class="col-sm-3">Level</dt>
+                    <dd class="col-sm-9">{{ object.level }}</dd>
+                    <dt class="col-sm-3">IP</dt>
+                    <dd class="col-sm-9">{{ object.ip|default:"-" }}</dd>
+                    <dt class="col-sm-3">Message</dt>
+                    <dd class="col-sm-9">{{ object.message }}</dd>
+                </dl>
+                <p class="mb-2"><strong>Stacktrace:</strong></p>
+                <pre class="bg-light border rounded p-3 mb-0">{{ object.stacktrace|default:"-" }}</pre>
+            </div>
+            <div class="card-footer d-flex justify-content-end gap-2">
+                <a class="btn btn-link me-auto" href="{% url 'exceptionlog-list' %}">Back</a>
+                <a class="btn btn-outline-danger" href="{% url 'exceptionlog-delete' object.pk %}">Delete</a>
+            </div>
+        </div>
+    </main>
 {% endblock %}
