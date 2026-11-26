@@ -50,3 +50,10 @@ class Customer(models.Model):
         max_length=100,
     )
 
+    # products this customer is entitled to
+    products = models.ManyToManyField(
+        'products.Product',
+        blank=True,
+        related_name='customers',
+    )
+

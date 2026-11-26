@@ -34,5 +34,13 @@ class Product(models.Model):
         blank=True,
     )
 
+    # other products sold together with this one (bundle)
+    bundled_products = models.ManyToManyField(
+        'self',
+        symmetrical=False,
+        blank=True,
+        related_name='bundled_in',
+    )
+
     def __str__(self):
         return f"{self.code} - {self.name}"
