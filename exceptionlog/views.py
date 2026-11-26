@@ -3,16 +3,13 @@ from django.views.generic import ListView, CreateView, DetailView, DeleteView
 
 from exceptionlog.models import ExceptionLog
 
-FIELDS = ["ip", "app", "level", "message", "stacktrace"]
-
-
 class ExceptionLogListView(ListView):
     model = ExceptionLog
     ordering = ["-timestamp"]
 
 class ExceptionLogCreateView(CreateView):
     model = ExceptionLog
-    fields = FIELDS
+    fields = ["ip", "app", "version", "level", "message", "stacktrace"]
     success_url = reverse_lazy("exceptionlog-list")
 
 class ExceptionLogDetailView(DetailView):

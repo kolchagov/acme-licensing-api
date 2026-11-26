@@ -30,6 +30,7 @@
         <tr>
             <th>Timestamp</th>
             <th>App</th>
+            <th>Version</th>
             <th>Level</th>
             <th>Message</th>
             <th>IP</th>
@@ -41,6 +42,7 @@
             <tr>
                 <td>{{ log.timestamp }}</td>
                 <td>{{ log.app }}</td>
+                <td>{{ log.version }}</td>
                 <td>{{ log.level }}</td>
                 <td><a href="{% url 'exceptionlog-details' log.pk %}">{{ log.message }}</a></td>
                 <td>{{ log.ip|default:"-" }}</td>

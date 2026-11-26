@@ -21,6 +21,7 @@ class ExceptionLog(models.Model):
 
     version = models.CharField(
         max_length=10,
+        default="",
         validators=[
             RegexValidator(
                 regex=r'^[0-9.]+(-(alpha|beta|rc|final)\d*)*$',
