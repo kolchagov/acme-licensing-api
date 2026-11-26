@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Delete trial</title>
-</head>
-<body>
-<h1>Delete trial</h1>
-<p>Delete "{{ object.device_sn }}"? This cannot be undone.</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Delete</button>
-    <a href="{% url 'trial-list' %}">Cancel</a>
-</form>
-</body>
-</html>
+{% extends 'index.html' %}
+{% block title %}Delete trial{% endblock %}
+{% block content %}
+    <h1 class="my-4">Delete trial</h1>
+    <p>Delete "{{ object.device_sn }}"? This cannot be undone.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a class="btn btn-link" href="{% url 'trial-list' %}">Cancel</a>
+    </form>
+{% endblock %}

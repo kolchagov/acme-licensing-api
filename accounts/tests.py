@@ -18,3 +18,14 @@ class CompanyNameRuleTests(TestCase):
     def test_create_user_without_company_name_is_rejected(self):
         with self.assertRaises(ValidationError):
             User.objects.create_user(username="acme", is_company=True, password="x")
+
+
+class LoginFlowTests(TestCase):
+    def test_login_page_renders_and_login_redirects_home(self):
+        User.objects.create_user(username="acme", password="x")
+        response = self.client.get("/accounts/login/")
+        self.assertContains(response, "Log in")
+        response = self.client.post(
+            "/accounts/login/", {"username": "acme", "password": "x"}
+        )
+        self.assertRedirects(response, "/")

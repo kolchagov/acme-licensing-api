@@ -1,57 +1,37 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Trials</title>
-    <style>
-        body {
-            font-family: system-ui, sans-serif;
-            margin: 2rem;
-        }
-
-        table {
-            border-collapse: collapse;
-        }
-
-        th, td {
-            border: 1px solid #ccc;
-            padding: .4rem .6rem;
-            text-align: left;
-        }
-    </style>
-</head>
-<body>
-<h1>Trials</h1>
-<p><a href="{% url 'trial-create' %}">Add trial</a></p>
-{% if object_list %}
-    <table>
-        <thead>
-        <tr>
-            <th>Trial code</th>
-            <th>Device SN</th>
-            <th>App</th>
-            <th>Installed</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for trial in object_list %}
+{% extends 'index.html' %}
+{% block title %}Trials{% endblock %}
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center my-4">
+        <h1>Trials</h1>
+        <a class="btn btn-primary" href="{% url 'trial-create' %}">Add trial</a>
+    </div>
+    {% if object_list %}
+        <table class="table table-striped align-middle">
+            <thead>
             <tr>
-                <td>{{ trial.trial_code }}</td>
-                <td><a href="{% url 'trial-detail' trial.pk %}">{{ trial.device_sn }}</a></td>
-                <td>{{ trial.app }}</td>
-                <td>{{ trial.date_installed|date:"Y-m-d" }}</td>
-                <td>
-                    <a href="{% url 'trial-edit' trial.pk %}">Edit</a>
-                    <a href="{% url 'trial-delete' trial.pk %}">Delete</a>
-                </td>
+                <th>Trial code</th>
+                <th>Device SN</th>
+                <th>App</th>
+                <th>Installed</th>
+                <th></th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>No trials yet.</p>
-{% endif %}
-</body>
-</html>
+            </thead>
+            <tbody>
+            {% for trial in object_list %}
+                <tr>
+                    <td>{{ trial.trial_code }}</td>
+                    <td><a href="{% url 'trial-detail' trial.pk %}">{{ trial.device_sn }}</a></td>
+                    <td>{{ trial.app }}</td>
+                    <td>{{ trial.date_installed|date:"Y-m-d" }}</td>
+                    <td class="text-nowrap">
+                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'trial-edit' trial.pk %}">Edit</a>
+                        <a class="btn btn-sm btn-outline-danger" href="{% url 'trial-delete' trial.pk %}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-body-secondary">No trials yet.</p>
+    {% endif %}
+{% endblock %}

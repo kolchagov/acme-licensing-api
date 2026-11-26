@@ -12,7 +12,7 @@ class Product(models.Model):
         validators=[
             RegexValidator(
                 regex=r'^[A-Z]\d{2}$',
-                message="Product code should contain one letter and two digits."
+                message="Product code should contain one uppercase letter and two digits."
             )
         ],
         help_text="One uppercase letter followed by two digits, e.g. A01.",
@@ -39,13 +39,13 @@ class Product(models.Model):
         help_text="Short description shown to customers.",
     )
 
-    # other products sold together with this one (bundle)
+    # if this is a bundle product, we should select bundled apps
     bundled_products = models.ManyToManyField(
         'self',
         symmetrical=False,
         blank=True,
         related_name='bundled_in',
-        help_text="Other products sold together with this one.",
+        help_text="if this is a bundle, select more than one bundled products.",
     )
 
     def __str__(self):

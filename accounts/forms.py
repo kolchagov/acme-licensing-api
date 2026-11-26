@@ -1,9 +1,15 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 
 from accounts.models import User
+from acme_licensing_api.forms import BootstrapForm
 
 
-class UserDetailForm(forms.ModelForm):
+class LoginForm(BootstrapForm, AuthenticationForm):
+    pass
+
+
+class UserDetailForm(BootstrapForm, forms.ModelForm):
     class Meta:
         model = User
         fields = ["username", "first_name", "last_name", "is_company", "company_name", "logo", "iban"]

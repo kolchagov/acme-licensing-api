@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Delete license</title>
-</head>
-<body>
-<h1>Delete license</h1>
-<p>Delete license "{{ object.pk }}" for {{ object.customer }}? This cannot be undone.</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Delete</button>
-    <a href="{% url 'license-list' %}">Cancel</a>
-</form>
-</body>
-</html>
+{% extends 'index.html' %}
+{% block title %}Delete license{% endblock %}
+{% block content %}
+    <h1 class="my-4">Delete license</h1>
+    <p>Delete license "{{ object.pk }}" for {{ object.customer }}? This cannot be undone.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a class="btn btn-link" href="{% url 'license-list' %}">Cancel</a>
+    </form>
+{% endblock %}

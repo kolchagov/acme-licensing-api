@@ -1,58 +1,40 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Exception log</title>
-    <style>
-        body {
-            font-family: system-ui, sans-serif;
-            margin: 2rem;
-        }
-
-        table {
-            border-collapse: collapse;
-        }
-
-        th, td {
-            border: 1px solid #ccc;
-            padding: .4rem .6rem;
-            text-align: left;
-        }
-    </style>
-</head>
-<body>
-<h1>Exception log</h1>
-<p><a href="{% url 'exceptionlog-create' %}">Add entry</a></p>
-{% if object_list %}
-    <table>
-        <thead>
-        <tr>
-            <th>Timestamp</th>
-            <th>App</th>
-            <th>Version</th>
-            <th>Level</th>
-            <th>Message</th>
-            <th>IP</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for log in object_list %}
+{% extends 'index.html' %}
+{% block title %}Exception log{% endblock %}
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center my-4">
+        <h1>Exception log</h1>
+        <a class="btn btn-primary" href="{% url 'exceptionlog-create' %}">Add entry</a>
+    </div>
+    {% if object_list %}
+        <table class="table table-striped align-middle">
+            <thead>
             <tr>
-                <td>{{ log.timestamp }}</td>
-                <td>{{ log.app }}</td>
-                <td>{{ log.version }}</td>
-                <td>{{ log.level }}</td>
-                <td><a href="{% url 'exceptionlog-details' log.pk %}">{{ log.message }}</a></td>
-                <td>{{ log.ip|default:"-" }}</td>
-                <td><a href="{% url 'exceptionlog-delete' log.pk %}">Delete</a></td>
+                <th>Timestamp</th>
+                <th>App</th>
+                <th>Version</th>
+                <th>Level</th>
+                <th>Message</th>
+                <th>IP</th>
+                <th></th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>No exceptions logged.</p>
-{% endif %}
-</body>
-</html>
+            </thead>
+            <tbody>
+            {% for log in object_list %}
+                <tr>
+                    <td>{{ log.timestamp }}</td>
+                    <td>{{ log.app }}</td>
+                    <td>{{ log.version }}</td>
+                    <td>{{ log.level }}</td>
+                    <td><a href="{% url 'exceptionlog-details' log.pk %}">{{ log.message }}</a></td>
+                    <td>{{ log.ip|default:"-" }}</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-danger" href="{% url 'exceptionlog-delete' log.pk %}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-body-secondary">No exceptions logged.</p>
+    {% endif %}
+{% endblock %}

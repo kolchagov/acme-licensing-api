@@ -2,6 +2,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
+from trials.forms import TrialForm
 from trials.models import Trial
 
 
@@ -15,13 +16,13 @@ class TrialDetailView(DetailView):
 
 class TrialCreateView(CreateView):
     model = Trial
-    fields = ["device_sn", "app", "details"]
+    form_class = TrialForm
     success_url = reverse_lazy("trial-list")
 
 
 class TrialUpdateView(UpdateView):
     model = Trial
-    fields = ["device_sn", "app", "details"]
+    form_class = TrialForm
     success_url = reverse_lazy("trial-list")
 
 

@@ -1,25 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>{{ customer.name }}</title>
-</head>
-<body>
-<h1>{{ customer.name }}</h1>
-<dl>
-    <dt>Address</dt><dd>{{ customer.address|default:"-" }}</dd>
-    <dt>Contact person</dt><dd>{{ customer.contact_person }}</dd>
-    <dt>UIC</dt><dd>{{ customer.uic }}</dd>
-    <dt>VAT</dt><dd>{{ customer.vat }}</dd>
-    <dt>Phone</dt><dd>{{ customer.phone }}</dd>
-    <dt>Email</dt><dd>{{ customer.email }}</dd>
-    <dt>Products</dt>
-    <dd>{% for product in customer.products.all %}{{ product }}{% if not forloop.last %}, {% endif %}{% empty %}-{% endfor %}</dd>
-</dl>
-<p>
-    <a href="{% url 'customer-update' customer.pk %}">Edit</a>
-    <a href="{% url 'customer-delete' customer.pk %}">Delete</a> |
-    <a href="{% url 'customers-list' %}">Back to customers</a>
-</p>
-</body>
-</html>
+{% extends 'index.html' %}
+{% block title %}{{ customer.name }}{% endblock %}
+{% block content %}
+    <h1 class="my-4">{{ customer.name }}</h1>
+    <dl class="row">
+        <dt class="col-sm-3">Address</dt>
+        <dd class="col-sm-9">{{ customer.address|default:"-" }}</dd>
+        <dt class="col-sm-3">Contact person</dt>
+        <dd class="col-sm-9">{{ customer.contact_person }}</dd>
+        <dt class="col-sm-3">UIC</dt>
+        <dd class="col-sm-9">{{ customer.uic }}</dd>
+        <dt class="col-sm-3">VAT</dt>
+        <dd class="col-sm-9">{{ customer.vat }}</dd>
+        <dt class="col-sm-3">Phone</dt>
+        <dd class="col-sm-9">{{ customer.phone }}</dd>
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">{{ customer.email }}</dd>
+        <dt class="col-sm-3">Products</dt>
+        <dd class="col-sm-9">{% for product in customer.products.all %}{{ product }}{% if not forloop.last %}, {% endif %}{% empty %}-{% endfor %}</dd>
+    </dl>
+    <p class="mt-4">
+        <a class="btn btn-outline-secondary" href="{% url 'customer-update' customer.pk %}">Edit</a>
+        <a class="btn btn-outline-danger" href="{% url 'customer-delete' customer.pk %}">Delete</a>
+        <a class="btn btn-link" href="{% url 'customers-list' %}">Back to customers</a>
+    </p>
+{% endblock %}
