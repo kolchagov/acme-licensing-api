@@ -26,12 +26,15 @@ class ExceptionLog(models.Model):
     ip = models.GenericIPAddressField(
         null=True,
         blank=True,
+        verbose_name="Client IP",
+        help_text="IP address of the client (optional).",
     )
 
     app = models.ForeignKey(
         to=Product,
         on_delete=models.CASCADE,
-        related_name='exceptions'
+        related_name='exceptions',
+        help_text="Product, reported the exception.",
     )
 
     version = models.CharField(
@@ -39,7 +42,8 @@ class ExceptionLog(models.Model):
         default="",
         validators=[
             app_version_validator()
-        ]
+        ],
+        help_text="Version of the reporting application, e.g. 1.2.3.",
     )
 
     timestamp = models.DateTimeField(
@@ -52,19 +56,22 @@ class ExceptionLog(models.Model):
         error_messages={
             "required": "Severity level required.",
         },
+        help_text="Severity level.",
     )
 
     message = models.CharField(
         max_length=200,
         error_messages={
             "required": "Message required.",
-        }
+        },
+        help_text="Message",
     )
 
     # optional stacktrace
     stacktrace = models.TextField(
         default="",
         blank=True,
+        help_text="Optional full stack trace.",
     )
 
     def __str__(self):

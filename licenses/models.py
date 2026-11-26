@@ -12,12 +12,14 @@ class License(models.Model):
         to=Trial,
         on_delete=models.CASCADE,
         related_name='license',
+        help_text="Trial record for which license was issued from.",
     )
 
     customer = models.ForeignKey(
         to=Customer,
         on_delete=models.CASCADE,
         related_name='licenses',
+        help_text="Customer - the license owner.",
     )
 
     version = models.CharField(
@@ -25,6 +27,7 @@ class License(models.Model):
         validators=[
             app_version_validator()
         ],
+        help_text="Licensed product version, e.g. 1.2.3.",
     )
 
     license_date = models.DateField(
@@ -35,6 +38,7 @@ class License(models.Model):
     expiry_date = models.DateField(
         blank=True,
         null=True,
+        help_text="Leave empty for a license that never expires.",
     )
 
     @property
@@ -43,7 +47,7 @@ class License(models.Model):
 
     def clean(self):
         super().clean()
-        # license_date is auto_now_add (today)
+        # license_date is auto_now_add, so on create fall back to today
         start = self.license_date or timezone.localdate()
         if self.expiry_date and self.expiry_date < start:
             raise ValidationError({

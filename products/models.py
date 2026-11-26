@@ -14,24 +14,29 @@ class Product(models.Model):
                 regex=r'^[A-Z]\d{2}$',
                 message="Product code should contain one letter and two digits."
             )
-        ]
+        ],
+        help_text="One uppercase letter followed by two digits, e.g. A01.",
     )
 
     name = models.CharField(
         max_length=200,
         validators=[
             MinLengthValidator(5, message="Enter a valid product name.")
-        ]
+        ],
+        help_text="Public product name.",
     )
 
     # product page link
     url = models.URLField(
         max_length=200,
         blank=True,
+        verbose_name="Product URL",
+        help_text="Public product page (optional).",
     )
 
     description = models.TextField(
         blank=True,
+        help_text="Short description shown to customers.",
     )
 
     # other products sold together with this one (bundle)
@@ -40,6 +45,7 @@ class Product(models.Model):
         symmetrical=False,
         blank=True,
         related_name='bundled_in',
+        help_text="Other products sold together with this one.",
     )
 
     def __str__(self):

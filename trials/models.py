@@ -16,16 +16,19 @@ class Trial(models.Model):
 
     device_sn = models.CharField(
         max_length=50,
+        verbose_name="Device serial number",
         validators=[
             RegexValidator(regex=r'^[a-zA-Z0-9_-]+$', message='Enter a valid device SN.'),
             MinLengthValidator(3, message='Minimum 3 characters.'),
-        ]
+        ],
+        help_text="Serial number set by the installed application.",
     )
 
     app = models.ForeignKey(
         to=Product,
         on_delete=models.CASCADE,
         related_name='trials',
+        help_text="Product the trial was started for.",
     )
 
     date_installed = models.DateField(
@@ -36,6 +39,7 @@ class Trial(models.Model):
     details = models.TextField(
         blank=True,
         default='',
+        help_text="Optional notes about this trial, usually the OS type and version.",
     )
 
     @property
