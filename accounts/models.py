@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator, MinLengthValidator
 from django.db import models
 
@@ -34,3 +35,10 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.company_name or self.username
+
+    def clean(self):
+        super().clean()
+        if self.is_company and not self.company_name:
+            raise ValidationError({
+                'company_name': 'Company name is required for company accounts.',
+            })

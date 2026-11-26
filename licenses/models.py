@@ -1,4 +1,6 @@
+from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils import timezone
 
 from acme_licensing_api.utils import trial_code_generator
 from acme_licensing_api.validators import app_version_validator
@@ -36,5 +38,17 @@ class License(models.Model):
     )
 
     @property
-    def check_code (self):
+    def check_code(self):
         return trial_code_generator(self.trial)
+
+    def clean(self):
+        super().clean()
+        # license_date is auto_now_add (today)
+        start = self.license_date or timezone.localdate()
+        if self.expiry_date and self.expiry_date < start:
+            raise ValidationError({
+                'expiry_date': 'Expiry date cannot be earlier than the license date.',
+            })
+
+    def __str__(self):
+        return f"{self.customer.name} - {self.trial.app.name} - ID:{self.id} {self.license_date.isoformat()}"

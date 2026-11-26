@@ -1,9 +1,11 @@
 from django.core.validators import MinLengthValidator, RegexValidator
 from django.db import models
-from django.utils.functional import empty
 
 
 class Customer(models.Model):
+    class Meta:
+        ordering = ['name']
+
     name = models.CharField(
         max_length=100,
         validators=[
@@ -27,16 +29,27 @@ class Customer(models.Model):
 
     uic = models.CharField(
         max_length=13,
+        unique=True,
         validators=[
             RegexValidator(r'^\d{9,13}$', message='Enter valid UIC number (min 9 digits)')
         ],
+        error_messages={
+            'unique': 'A customer with this UIC already exists.',
+        },
     )
 
     vat = models.CharField(
         max_length=11,
+        unique=True,
         validators=[
-            RegexValidator(r'\w{2}\d{9}')
-        ]
+            RegexValidator(
+                r'^[A-Z]{2}\d{9}$',
+                message='Enter a valid VAT number (two letters and 9 digits).',
+            )
+        ],
+        error_messages={
+            'unique': 'A customer with this VAT number already exists.',
+        },
     )
 
     phone = models.CharField(
@@ -56,4 +69,7 @@ class Customer(models.Model):
         blank=True,
         related_name='customers',
     )
+
+    def __str__(self):
+        return self.name
 
