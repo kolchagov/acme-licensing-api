@@ -1,11 +1,11 @@
-{% load static %}
+{% load static company %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'home' %}">
             <img src="{% static 'img/logo-acme.webp' %}"
                  class="image-responsive"
                  style="height: 50pt"
-                 alt="Acme ltd logo">
+                 alt="{% company_name %} logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,21 +15,7 @@
             {% if user.is_authenticated %}
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{% url 'home' %}">Dashboard</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="licensesDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Licenses
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="licensesDropdown">
-                            <li>
-                                <a class="dropdown-item" href="{% url 'license-list' %}">All licenses</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{% url 'license-create' %}">New license</a>
-                            </li>
-                        </ul>
+                        <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="customersDropdown" role="button"
@@ -42,20 +28,6 @@
                             </li>
                             <li>
                                 <a class="dropdown-item" href="{% url 'customer-create' %}">New customer</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="productsDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Products
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="productsDropdown">
-                            <li>
-                                <a class="dropdown-item" href="{% url 'product-list' %}">All products</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{% url 'product-create' %}">New product</a>
                             </li>
                         </ul>
                     </li>
@@ -73,6 +45,35 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="licensesDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Licenses
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="licensesDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'license-list' %}">All licenses</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'license-create' %}">New license</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="productsDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Products
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="productsDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'product-list' %}">All products</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'product-create' %}">New product</a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="exceptionsDropdown" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -93,8 +94,8 @@
                         </li>
                     {% endif %}
                 </ul>
-                {% else %}
-                <h2>Acme licensing backend</h2>
+            {% else %}
+                <h2>{% company_name %} licensing backend</h2>
             {% endif %}
 
             <ul class="ms-auto navbar-nav">

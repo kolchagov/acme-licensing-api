@@ -1,8 +1,10 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
+from django.urls import reverse
 
 from accounts.models import User
 
+from django.conf import settings
 
 class CompanyNameRuleTests(TestCase):
     def test_distributor_without_company_name_is_invalid(self):
@@ -12,7 +14,7 @@ class CompanyNameRuleTests(TestCase):
         self.assertIn("company_name", ctx.exception.message_dict)
 
     def test_distributor_with_company_name_is_valid(self):
-        user = User(username="acme", is_company=True, company_name="Acme Ltd.", password="x")
+        user = User(username="acme", is_company=True, company_name=settings.COMPANY_NAME, password="x")
         user.full_clean()
 
     def test_create_user_without_company_name_is_rejected(self):
@@ -28,4 +30,4 @@ class LoginFlowTests(TestCase):
         response = self.client.post(
             "/accounts/login/", {"username": "acme", "password": "x"}
         )
-        self.assertRedirects(response, "/")
+        self.assertRedirects(response, reverse(settings.LOGIN_REDIRECT_URL))
