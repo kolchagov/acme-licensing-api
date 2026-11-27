@@ -13,6 +13,10 @@ class CustomerListView(LoginRequiredMixin, ListView):
 class CustomerDetailView(LoginRequiredMixin, DetailView):
     model = Customer
 
+    def get_queryset(self):
+        # the detail page renders the customer's licenses table
+        return super().get_queryset().prefetch_related("licenses__trial__app")
+
 
 class CustomerCreateView(LoginRequiredMixin, CreateView):
     model = Customer

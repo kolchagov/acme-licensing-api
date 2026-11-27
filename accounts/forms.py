@@ -1,8 +1,12 @@
 from django import forms
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm
 
 from accounts.models import User
 from acme_licensing_api.forms import BootstrapForm
+
+UserModel = get_user_model()
 
 
 class LoginForm(BootstrapForm, AuthenticationForm):
@@ -21,3 +25,14 @@ class UserDetailForm(BootstrapForm, forms.ModelForm):
                 attrs={"placeholder": "IBAN CODE (only for distributors)"}
             ),
         }
+
+
+class CustomRegistrationForm(UserCreationForm):
+    class Meta:
+        model = UserModel
+        fields = ('username', 'email', 'first_name', 'last_name', 'is_company', 'company_name', 'iban')
+
+    def save(self, commit=True):
+        # clean the data and save the user
+        self.cleaned_data['username'] = self.cleaned_data['username'].lower()
+        return super().save(commit=commit)

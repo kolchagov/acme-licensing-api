@@ -7,41 +7,7 @@
             <a class="btn btn-primary" href="{% url 'license-create' %}">Add license</a>
         </div>
         <div class="card">
-            {% if object_list %}
-                <div class="card-body p-0 table-responsive">
-                    <table class="table table-striped align-middle mb-0">
-                        <thead>
-                        <tr>
-                            <th>Trial</th>
-                            <th>Customer</th>
-                            <th>Version</th>
-                            <th>License date</th>
-                            <th>Expiry date</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for license in object_list %}
-                            <tr>
-                                <td><a href="{% url 'license-detail' license.pk %}">{{ license.trial }}</a></td>
-                                <td>{{ license.customer }}</td>
-                                <td>{{ license.version }}</td>
-                                <td>{{ license.license_date }}</td>
-                                <td>{{ license.expiry_date|default:"-" }}</td>
-                                <td class="text-nowrap">
-                                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'license-update' license.pk %}">Edit</a>
-                                    <a class="btn btn-sm btn-outline-danger" href="{% url 'license-delete' license.pk %}">Delete</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            {% else %}
-                <div class="card-body">
-                    <p class="text-body-secondary mb-0">No licenses yet.</p>
-                </div>
-            {% endif %}
+            {% include 'licenses/license_table.html' with licenses=object_list show_customer=True %}
         </div>
     </main>
 {% endblock %}

@@ -1,10 +1,15 @@
-"""Idempotent demo data: 10 users, 10 customers, 10 products.
+"""Idempotent demo data: 10 users, 10 customers, 12 products, 10 exceptions, 20 licenses.
 
 Run: python manage.py shell -c "exec(open('seed.py').read())"
 """
+from datetime import date
+
 from accounts.models import User
 from customers.models import Customer
+from exceptionlog.models import ExceptionLog
+from licenses.models import License
 from products.models import Product
+from trials.models import Trial
 
 PASSWORD = "Acme!2026"
 

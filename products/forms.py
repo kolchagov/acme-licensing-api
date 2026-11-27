@@ -28,3 +28,22 @@ class ProductForm(BootstrapForm, forms.ModelForm):
     class Meta:
         model = Product
         fields = ["code", "name", "url", "description", "bundled_products"]
+        labels = {
+            "code": "Product code",
+            "name": "Product name",
+            "url": "Product page URL",
+            "description": "Description",
+            "bundled_products": "Bundled products",
+        }
+        widgets = {
+            "code": forms.TextInput(attrs={"placeholder": "e.g. A01"}),
+            "name": forms.TextInput(attrs={"placeholder": "e.g. Acme Backup Pro"}),
+            "url": forms.URLInput(attrs={"placeholder": "https://example.com/product"}),
+            "description": forms.Textarea(
+                attrs={"rows": 3, "placeholder": "Short description shown to customers"}
+            ),
+        }
+        error_messages = {
+            "code": {"required": "Product code is required."},
+            "name": {"required": "Product name is required."},
+        }

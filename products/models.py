@@ -16,6 +16,9 @@ class Product(models.Model):
             )
         ],
         help_text="One uppercase letter followed by two digits, e.g. A01.",
+        error_messages={
+            "unique": "A product with this code already exists.",
+        },
     )
 
     name = models.CharField(

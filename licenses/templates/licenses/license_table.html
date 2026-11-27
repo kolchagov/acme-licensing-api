@@ -1,0 +1,35 @@
+{% if licenses %}
+    <div class="card-body p-0 table-responsive">
+        <table class="table table-striped align-middle mb-0">
+            <thead>
+            <tr>
+                <th>Trial</th>
+                {% if show_customer %}<th>Customer</th>{% endif %}
+                <th>Version</th>
+                <th>License date</th>
+                <th>Expiry date</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for license in licenses %}
+                <tr>
+                    <td><a href="{% url 'license-detail' license.pk %}">{{ license.trial }}</a></td>
+                    {% if show_customer %}<td>{{ license.customer }}</td>{% endif %}
+                    <td>{{ license.version }}</td>
+                    <td>{{ license.license_date }}</td>
+                    <td>{{ license.expiry_date|default:"-" }}</td>
+                    <td class="text-nowrap">
+                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'license-update' license.pk %}">Edit</a>
+                        <a class="btn btn-sm btn-outline-danger" href="{% url 'license-delete' license.pk %}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="card-body">
+        <p class="text-body-secondary mb-0">No licenses found.</p>
+    </div>
+{% endif %}
