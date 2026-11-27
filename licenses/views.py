@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -5,26 +6,26 @@ from licenses.forms import LicenseForm
 from licenses.models import License
 
 
-class LicenseListView(ListView):
+class LicenseListView(LoginRequiredMixin, ListView):
     model = License
 
 
-class LicenseDetailView(DetailView):
+class LicenseDetailView(LoginRequiredMixin, DetailView):
     model = License
 
 
-class LicenseCreateView(CreateView):
-    model = License
-    form_class = LicenseForm
-    success_url = reverse_lazy("license-list")
-
-
-class LicenseUpdateView(UpdateView):
+class LicenseCreateView(LoginRequiredMixin, CreateView):
     model = License
     form_class = LicenseForm
     success_url = reverse_lazy("license-list")
 
 
-class LicenseDeleteView(DeleteView):
+class LicenseUpdateView(LoginRequiredMixin, UpdateView):
+    model = License
+    form_class = LicenseForm
+    success_url = reverse_lazy("license-list")
+
+
+class LicenseDeleteView(LoginRequiredMixin, DeleteView):
     model = License
     success_url = reverse_lazy("license-list")

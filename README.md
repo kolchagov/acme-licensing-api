@@ -1,4 +1,4 @@
-# Acme Licensing API
+# Acme Licensing backend and API
 
 Acme Licensing API is a Django project for managing software licenses and trials.
 The idea is to give staff a central place to manage licenses, ease support and error detection.
