@@ -14,17 +14,17 @@ from trials.models import Trial
 PASSWORD = "Acme!2026"
 
 USERS = [
-    # (username, email, is_company, company_name, iban)
-    ("vertex_systems", "office@vertex-systems.bg", True, "Vertex Systems Ltd.", "BG18RZBB91550123456789"),
-    ("nova_soft", "sales@novasoft.bg", True, "NovaSoft Solutions Ltd.", "BG44BNBG96611000112233"),
-    ("orbit_labs", "hello@orbitlabs.eu", True, "Orbit Labs EOOD", "BG29UNCR70001500123456"),
-    ("quantum_web", "team@quantumweb.bg", True, "Quantum Web AD", "BG07STSA93000000123456"),
-    ("delta_cloud", "info@deltacloud.bg", True, "Delta Cloud OOD", "BG63FINV91501000223344"),
-    ("m.ivanova", "m.ivanova@mail.bg", False, None, None),
-    ("g.petrov", "g.petrov@abv.bg", False, None, None),
-    ("e.dimitrova", "e.dimitrova@gmail.com", False, None, None),
-    ("s.kolev", "s.kolev@yahoo.com", False, None, None),
-    ("v.stoyanova", "v.stoyanova@proton.me", False, None, None),
+    # (username, first_name, last_name, email, is_company, company_name, iban)
+    ("vertex_systems", "Vladimir", "Angelov", "office@vertex-systems.bg", True, "Vertex Systems Ltd.", "BG18RZBB91550123456789"),
+    ("nova_soft", "Nadezhda", "Petrova", "sales@novasoft.bg", True, "NovaSoft Solutions Ltd.", "BG44BNBG96611000112233"),
+    ("orbit_labs", "Ognian", "Dimitrov", "hello@orbitlabs.eu", True, "Orbit Labs EOOD", "BG29UNCR70001500123456"),
+    ("quantum_web", "Kalin", "Stoyanov", "team@quantumweb.bg", True, "Quantum Web AD", "BG07STSA93000000123456"),
+    ("delta_cloud", "Damian", "Georgiev", "info@deltacloud.bg", True, "Delta Cloud OOD", "BG63FINV91501000223344"),
+    ("m.ivanova", "Mariya", "Ivanova", "m.ivanova@mail.bg", False, None, None),
+    ("g.petrov", "Georgi", "Petrov", "g.petrov@abv.bg", False, None, None),
+    ("e.dimitrova", "Elena", "Dimitrova", "e.dimitrova@gmail.com", False, None, None),
+    ("s.kolev", "Stefan", "Kolev", "s.kolev@yahoo.com", False, None, None),
+    ("v.stoyanova", "Violeta", "Stoyanova", "v.stoyanova@proton.me", False, None, None),
 ]
 
 CUSTOMERS = [
@@ -55,10 +55,13 @@ PRODUCTS = [
     ("J10", "Acme Backup Guard", "", "Scheduled off-site backups with restore checks."),
 ]
 
-for username, email, is_company, company_name, iban in USERS:
-    user, created = User.objects.get_or_create(
+for username, first_name, last_name, email, is_company, company_name, iban in USERS:
+    user, created = User.objects.update_or_create(
         username=username,
-        defaults=dict(email=email, is_company=is_company, company_name=company_name, iban=iban),
+        defaults=dict(
+            first_name=first_name, last_name=last_name, email=email,
+            is_company=is_company, company_name=company_name, iban=iban,
+        ),
     )
     if created:
         user.set_password(PASSWORD)
